@@ -1,5 +1,6 @@
 package com.example.quiz.controller;
 
+import com.example.quiz.dto.UserDto;
 import com.example.quiz.entity.User;
 import com.example.quiz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +28,22 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public UserDto createUser(@RequestBody UserDto user) {
         return userService.save(user);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        Optional<User> user1 = userService.findById(id);
-
-        if (user1.isPresent()) {
-            User updatedUser = user1.get();
-            return ResponseEntity.ok(userService.save(updatedUser));
-        } else {
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User userDetails) {
+        Optional<User> user = userService.findById(id);
+        if (user.isPresent()) {
+            User user1 = user.get();
+            user1.setName(userDetails.getName());
+            user1.setEmail(userDetails.getEmail());
+            user1.setPassword(userDetails.getPassword());
+            user1.setAddress(userDetails.getAddress());
+            user1.setPhone(userDetails.getPhone());
+            return ResponseEntity.ok(userService.update(user1));
+        }else{
             return ResponseEntity.notFound().build();
         }
     }

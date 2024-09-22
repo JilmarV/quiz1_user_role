@@ -25,14 +25,15 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-    private List<Role> role;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     public User() {
         super();
     }
 
-    public User(Long user_id, String name, String address, String phone, String email, String password, List<Role> role) {
+    public User(Long user_id, String name, String address, String phone, String email, String password, Role role) {
         this.user_id = user_id;
         this.name = name;
         this.address = address;
@@ -42,7 +43,7 @@ public class User {
         this.role = role;
     }
 
-    public User(String name, String address, String phone, String email, String password, List<Role> role) {
+    public User(String name, String address, String phone, String email, String password, Role role) {
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -99,11 +100,11 @@ public class User {
         this.password = password;
     }
 
-    public List<Role> getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(List<Role> role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

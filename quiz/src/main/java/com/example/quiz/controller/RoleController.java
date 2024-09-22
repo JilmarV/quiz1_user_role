@@ -1,5 +1,6 @@
 package com.example.quiz.controller;
 
+import com.example.quiz.dto.RoleDto;
 import com.example.quiz.entity.Role;
 import com.example.quiz.entity.User;
 import com.example.quiz.service.RoleService;
@@ -20,28 +21,29 @@ public class RoleController {
     private UserService userService;
 
     @GetMapping
-    public List<User> getAllProducts() {
-        return userService.findAll();
+    public List<Role> getAllRoles() {
+        return roleService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Role> getProductById(@PathVariable Long id) {
+    public ResponseEntity<Role> getRolesById(@PathVariable Long id) {
         Optional<Role> role = roleService.findById(id);
         return role.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Role createUser(@RequestBody Role role) {
+    public RoleDto createRole(@RequestBody RoleDto role) {
         return roleService.save(role);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Role> updatedRole(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<Role> updatedRole(@PathVariable Long id, @RequestBody Role role) {
         Optional<Role> role1 = roleService.findById(id);
 
         if (role1.isPresent()) {
             Role updatedRole = role1.get();
-            return ResponseEntity.ok(roleService.save(updatedRole));
+            updatedRole.setName_role(role.getName_role());
+            return ResponseEntity.ok(roleService.update(updatedRole));
         } else {
             return ResponseEntity.notFound().build();
         }
