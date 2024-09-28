@@ -2,13 +2,22 @@ package com.example.quiz.dto;
 
 import com.example.quiz.entity.Role;
 import jakarta.persistence.Column;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
-
+@Valid
 public class UserDto {
+    @NotBlank
     private String name;
+    @Size(min = 15, max = 80, message = "La dirección tiene un límite de entre 15 a 80 caracteres")
+    @Pattern(regexp = "^\\d+\\s[A-Za-z0-9\\s,.#-]+$", message = "La dirección no cumple con el formato")
     private String address;
     private String phone;
+    @Email
     private String email;
     private String password;
     private Role role;

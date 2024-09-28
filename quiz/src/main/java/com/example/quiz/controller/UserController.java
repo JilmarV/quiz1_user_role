@@ -3,6 +3,7 @@ package com.example.quiz.controller;
 import com.example.quiz.dto.UserDto;
 import com.example.quiz.entity.User;
 import com.example.quiz.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto createUser(@RequestBody UserDto user) {
+    public UserDto createUser(@Valid @RequestBody UserDto user) {
         return userService.save(user);
     }
 
