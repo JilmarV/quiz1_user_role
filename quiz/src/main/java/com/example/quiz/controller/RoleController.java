@@ -5,6 +5,7 @@ import com.example.quiz.entity.Role;
 import com.example.quiz.entity.User;
 import com.example.quiz.service.RoleService;
 import com.example.quiz.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class RoleController {
     }
 
     @PostMapping
-    public RoleDto createRole(@RequestBody RoleDto role) {
+    public RoleDto createRole(@Valid @RequestBody RoleDto role) {
         return roleService.save(role);
     }
 

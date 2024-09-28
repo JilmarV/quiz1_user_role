@@ -1,10 +1,14 @@
 package com.example.quiz.dto;
 
 import com.example.quiz.entity.User;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
-
+@Valid
 public class RoleDto {
+    @NotBlank
     private String name;
     private List<User> user;
 
